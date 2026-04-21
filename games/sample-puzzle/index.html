@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample Puzzle</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #111933; color: white; display: grid; place-items: center; min-height: 100vh; }
+    .wrap { width: min(92vw, 720px); }
+    h1, p { text-align: center; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    button { aspect-ratio: 1; border: 0; border-radius: 16px; font-size: 2rem; cursor: pointer; background: #263869; color: transparent; }
+    button.revealed, button.matched { color: white; background: #4a71db; }
+    .bar { display: flex; justify-content: space-between; margin: 14px 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Memory Puzzle</h1>
+    <p>Match all pairs.</p>
+    <div class="bar"><span id="moves">Moves: 0</span><span id="status"></span></div>
+    <div class="grid" id="grid"></div>
+  </div>
+  <script>
+    const icons = ['🍎','🍎','🚀','🚀','⚽','⚽','🎵','🎵','🧩','🧩','🔥','🔥','🌙','🌙','⭐','⭐']
+      .sort(() => Math.random() - .5);
+    const grid = document.getElementById('grid');
+    const movesEl = document.getElementById('moves');
+    const statusEl = document.getElementById('status');
+    let picks = [];
+    let lock = false;
+    let moves = 0;
+    icons.forEach((icon, index) => {
+      const btn = document.createElement('button');
+      btn.dataset.icon = icon;
+      btn.dataset.index = index;
+      btn.textContent = icon;
+      btn.onclick = () => {
+        if (lock || btn.classList.contains('matched') || btn.classList.contains('revealed')) return;
+        btn.classList.add('revealed');
+        picks.push(btn);
+        if (picks.length === 2) {
+          moves++;
+          movesEl.textContent = 'Moves: ' + moves;
+          if (picks[0].dataset.icon === picks[1].dataset.icon) {
+            picks.forEach(x => x.classList.add('matched'));
+            picks = [];
+            if ([...document.querySelectorAll('.matched')].length === 16) statusEl.textContent = 'You won!';
+          } else {
+            lock = true;
+            setTimeout(() => {
+              picks.forEach(x => x.classList.remove('revealed'));
+              picks = [];
+              lock = false;
+            }, 700);
+          }
+        }
+      };
+      grid.appendChild(btn);
+    });
+  </script>
+</body>
+</html>
