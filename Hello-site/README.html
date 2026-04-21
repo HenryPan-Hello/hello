@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Replace Games</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <main class="readme-shell">
+    <a class="back-link" href="index.html">← Back to home</a>
+    <p class="eyebrow">Setup guide</p>
+    <h1>How to replace the sample games</h1>
+    <p>This starter site is static, so replacing a game is easy.</p>
+
+    <h2>1. Add your game files</h2>
+    <p>Create a folder inside <code>games/</code>, for example <code>games/my-new-game/</code>. Put your exported HTML5 game files there.</p>
+    <pre><code>games/
+  my-new-game/
+    index.html
+    assets/
+    scripts/
+</code></pre>
+
+    <h2>2. Update <code>data/games.json</code></h2>
+    <p>Add one object like this:</p>
+    <pre><code>{
+  "id": "my-new-game",
+  "slug": "my-new-game",
+  "title": "My New Game",
+  "description": "Short game description.",
+  "categories": ["Action", "Arcade"],
+  "tags": ["fast", "boss", "platformer"],
+  "coverEmoji": "⚔️",
+  "featured": true,
+  "gamePath": "games/my-new-game",
+  "entryFile": "index.html"
+}</code></pre>
+
+    <h2>3. Optional: remove the sample games</h2>
+    <p>Delete the sample folders and remove their objects from <code>data/games.json</code>.</p>
+
+    <h2>4. Deploy</h2>
+    <p>You can upload this folder to GitHub Pages, Cloudflare Pages, Netlify, or any static host.</p>
+
+    <h2>Notes</h2>
+    <ul>
+      <li>Best for HTML5 games.</li>
+      <li>Unity WebGL / Godot Web / Construct exports can work if all files stay together.</li>
+      <li>If your game needs a special start file, change <code>entryFile</code>.</li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Portal</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">Game<span>Portal</span></div>
+    <div class="header-actions">
+      <input id="searchInput" type="search" placeholder="Search games..." />
+      <select id="categoryFilter">
+        <option value="all">All categories</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">HTML5 game platform starter</p>
+        <h1>Launch your own browser game website</h1>
+        <p class="hero-copy">A Poki-style starter template with a home page, game cards, categories, detail pages, and a play page. Replace the sample game folders with your own game files.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#gamesGrid">Browse games</a>
+          <a class="button secondary" href="README.html">How to replace games</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="stat-card">
+          <strong id="gameCount">0</strong>
+          <span>Games</span>
+        </div>
+        <div class="stat-card">
+          <strong>Static</strong>
+          <span>No backend required</span>
+        </div>
+        <div class="stat-card">
+          <strong>Easy</strong>
+          <span>Swap folders + edit JSON</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <h2>Featured games</h2>
+        <p>Click any game to view details or play it instantly.</p>
+      </div>
+      <div id="featuredRow" class="featured-row"></div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <h2>All games</h2>
+        <p>Use search and category filters to browse.</p>
+      </div>
+      <div id="gamesGrid" class="games-grid"></div>
+      <div id="emptyState" class="empty-state hidden">No matching games found.</div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built as a starter kit for your own browser game website.</p>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

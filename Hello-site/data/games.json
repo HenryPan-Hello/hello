@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sample-runner",
+    "slug": "sample-runner",
+    "title": "Sample Runner",
+    "description": "A tiny demo runner game so you can test the website immediately.",
+    "categories": ["Arcade", "Runner"],
+    "tags": ["demo", "singleplayer", "html5"],
+    "coverEmoji": "🏃",
+    "featured": true,
+    "gamePath": "games/sample-runner",
+    "entryFile": "index.html"
+  },
+  {
+    "id": "sample-puzzle",
+    "slug": "sample-puzzle",
+    "title": "Sample Puzzle",
+    "description": "A quick memory puzzle demo showing how another game can be added.",
+    "categories": ["Puzzle", "Casual"],
+    "tags": ["demo", "memory", "html5"],
+    "coverEmoji": "🧩",
+    "featured": true,
+    "gamePath": "games/sample-puzzle",
+    "entryFile": "index.html"
+  }
+]

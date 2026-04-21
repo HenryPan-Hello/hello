@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample Runner</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #0d1327; color: white; font-family: Arial, sans-serif; overflow: hidden; }
+    canvas { display: block; margin: 0 auto; background: linear-gradient(#75d7ff, #e7f7ff 55%, #9be38f 56%, #77ca66); }
+    .hint { position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,.35); padding: 8px 10px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <div class="hint">Space = jump</div>
+  <canvas id="game" width="960" height="540"></canvas>
+  <script>
+    const c = document.getElementById('game');
+    const ctx = c.getContext('2d');
+    const player = { x: 120, y: 380, w: 38, h: 50, vy: 0, onGround: true };
+    const obstacles = [];
+    let score = 0;
+    let over = false;
+    let tick = 0;
+    function spawn() {
+      const h = 30 + Math.random() * 60;
+      obstacles.push({ x: c.width + 40, y: 430 - h, w: 24 + Math.random() * 24, h });
+    }
+    addEventListener('keydown', e => {
+      if (e.code === 'Space' && player.onGround && !over) {
+        player.vy = -13;
+        player.onGround = false;
+      }
+      if (e.code === 'KeyR' && over) location.reload();
+    });
+    function rect(a, b) {
+      return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+    }
+    function loop() {
+      requestAnimationFrame(loop);
+      ctx.clearRect(0, 0, c.width, c.height);
+      ctx.fillStyle = '#6d5330';
+      ctx.fillRect(0, 430, c.width, 110);
+      tick++;
+      if (!over) {
+        if (tick % 95 === 0) spawn();
+        player.vy += 0.6;
+        player.y += player.vy;
+        if (player.y >= 380) { player.y = 380; player.vy = 0; player.onGround = true; }
+        obstacles.forEach(o => o.x -= 6);
+        while (obstacles.length && obstacles[0].x + obstacles[0].w < 0) { obstacles.shift(); score++; }
+        for (const o of obstacles) if (rect(player, o)) over = true;
+      }
+      ctx.fillStyle = '#20243e';
+      ctx.fillRect(player.x, player.y, player.w, player.h);
+      ctx.fillStyle = '#ff8c42';
+      obstacles.forEach(o => ctx.fillRect(o.x, o.y, o.w, o.h));
+      ctx.fillStyle = '#0e1633';
+      ctx.font = 'bold 28px Arial';
+      ctx.fillText('Score: ' + score, 24, 40);
+      if (over) {
+        ctx.fillStyle = 'rgba(0,0,0,.45)';
+        ctx.fillRect(0, 0, c.width, c.height);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 44px Arial';
+        ctx.fillText('Game Over', 360, 220);
+        ctx.font = '24px Arial';
+        ctx.fillText('Press R to restart', 385, 270);
+      }
+    }
+    loop();
+  </script>
+</body>
+</html>
